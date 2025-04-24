@@ -15,8 +15,8 @@ altura_lata = 6.69/100
 altura_balde = 12.4/100
 
 #espessuras
-e_balde = 0.91/2.5
-e_lata = 0.68/2.5
+e_balde = 0.91/1000
+e_lata = 0.68/1000
 
 # Massas
 m_agua = 3.331
@@ -30,9 +30,9 @@ A_sup_leite = np.pi * raio_lata**2
 A_lateral_balde = np.pi*altura_balde*raio_balde*2
 
 # Coeficientes de troca térmica
-k_aco = 16.2
-k_lata = 226
-h_ar = 1.77
+k_aco = 16.2/420
+k_lata = 226/250
+h_ar = 10.77
 leite_ar = 13.6
 
 # Temperatura da chapa
