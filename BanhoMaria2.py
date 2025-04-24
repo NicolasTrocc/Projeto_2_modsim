@@ -15,8 +15,8 @@ altura_lata = 6.69/100
 altura_balde = 12.4/100
 
 #espessuras
-e_balde = 0.91/1000
-e_lata = 0.08/1000
+e_balde = 0.91/5
+e_lata = 0.08/5
 
 # Massas
 m_agua = 3.331
@@ -30,23 +30,33 @@ A_sup_leite = np.pi * raio_lata**2
 A_lateral_balde = np.pi*altura_balde*raio_balde*2
 
 # Coeficientes de troca térmica
-h_chapa_agua = 500
-h_agua_leite = 100
-h_agua_ar = 14
-leite_ar = 0
+k_aco = 16.2
+k_lata = 226
+h_ar = 1.77
+leite_ar = 13.6
 
 # Temperatura da chapa
 T_chapa = 130
+T_amb = 22.1
+#Resistencias térmicas
+R_cond_base = e_balde/(k_aco*A_chapa_agua)
+R_cond_lata = e_lata/(k_lata*A_agua_leite)
+R_conv_balde = 1/(h_ar*A_lateral_balde)
+R_cond_balde = e_balde/(k_aco*A_lateral_balde)
+R_conv_leite = 1/(h_ar*A_sup_leite)
+R_conv_agua = 1/(h_ar*A_sup_agua)
 
 # Modelo
 def modelo(T, t):
-    T_agua, T_leite = T
-    Q1 = h_chapa_agua * A_chapa_agua * (T_chapa - T_agua)
-    Q2 = (16.2*A_lateral_balde)+(h_chapa_agua*A_chapa_agua)/e_balde
-    Q3 = h_agua_leite * A_agua_leite * (T_agua - T_leite)
-    Q4 = ()
-    dT_agua_dt = (Q1 - Q2) / (m_agua * c_agua)
-    dT_leite_dt = Q2 / (m_leite * c_leite_coco)
+    T_agua = T[0]
+    T_leite = T[1]
+    Q1 =  (T_chapa-T_agua)/(R_cond_base)
+    Q2 = (T_agua-T_amb)/(R_cond_balde+R_conv_balde)
+    Q3 = (T_agua-T_leite)/(R_cond_lata)
+    Q4 = (T_agua-T_amb)/(R_conv_agua)
+    Q5 = (T_leite-T_amb)/(R_conv_leite)
+    dT_agua_dt = (Q1-Q2-Q3-Q4) / (m_agua * c_agua)
+    dT_leite_dt = (Q3-Q5) / (m_leite * c_leite_coco)
     return [dT_agua_dt, dT_leite_dt]
 
 # Condições iniciais
