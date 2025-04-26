@@ -25,7 +25,7 @@ m_leite = 0.232
 
 # Áreas reais
 A_chapa_agua = np.pi * raio_balde**2
-A_agua_leite = 2 * np.pi * raio_lata *  + np.pi * raio_lata**2
+A_agua_leite = 2 * np.pi * raio_lata * altura_lata + np.pi * raio_lata**2
 A_sup_agua = (np.pi*raio_balde**2)-(np.pi * raio_lata**2)
 A_sup_leite = np.pi * raio_lata**2
 A_lateral_balde = np.pi*altura_balde*raio_balde*2
@@ -65,14 +65,10 @@ def conclusivo(T, t, espessura):
 
 # Condições iniciais
 T0 = [22.1, 22.1]
-espessura = np.arange(0.91/1000, 0.91, 0.01/1000)
+espessura = np.arange(0.91/1000, 0.91, 0.01/100)
 # print(f'Aqui esta a lista {espessura}')
 # Tempo contínuo
 tempo = np.linspace(0, 8100, 1000)
-
-# Tempo de medição de 5 em 5 min
-# tempo_medicao = np.arange(0, 8100+1, 300)  # de 0 a 8100 s, passo 300 s
-# solucao_medicao = odeint(conclusivo, T0, tempo_medicao)
 
 #grafico conclusivo
 for e in espessura:
@@ -84,10 +80,3 @@ plt.ylabel("Temperatura (°C)")
 plt.title("Evolução Térmica")
 plt.grid(True, which='major', linestyle='-', linewidth=0.5, alpha=0.7)
 plt.show()
-
-#dados da medição
-Temps_MedAgua = [
-    22.9, 25.8, 28.1, 30.6, 33.1, 34.9, 37, 38.7, 40.4, 42.2,
-    43.8, 45.3, 46.4, 47.9, 49, 50.2, 51.3, 52.3, 52.9, 54,
-    54.8, 55.5, 56.3, 56.9, 57.4, 58.1, 58.5, 58.8
-]

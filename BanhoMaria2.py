@@ -24,7 +24,7 @@ m_leite = 0.232
 
 # Áreas reais
 A_chapa_agua = np.pi * raio_balde**2
-A_agua_leite = 2 * np.pi * raio_lata *  + np.pi * raio_lata**2
+A_agua_leite = 2 * np.pi * raio_lata * altura_lata + np.pi * raio_lata**2
 A_sup_agua = (np.pi*raio_balde**2)-(np.pi * raio_lata**2)
 A_sup_leite = np.pi * raio_lata**2
 A_lateral_balde = np.pi*altura_balde*raio_balde*2
