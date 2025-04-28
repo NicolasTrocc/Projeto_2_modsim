@@ -57,8 +57,8 @@ tempo = np.arange(0, 8100+1, 1)  # 2h15min
 
 
 #modelo
-temps_ambs = np.arange(0 , 50, 5)
-def conclusivo2(T, t, T_amb):
+temps_ambs = np.arange(100 , 230, 10)
+def conclusivo2(T, t, T_chapa):
     T_agua, T_leite = T
     # Calor transferido
     Q1 = (T_chapa - T_agua) / (R_total_base)
@@ -75,7 +75,7 @@ def conclusivo2(T, t, T_amb):
 for v in temps_ambs:
     Volta = odeint(conclusivo2, T0, tempo, args=(v,))
     resultados = Volta[:,1]
-    plt.plot(tempo/60, resultados, label=(f'curva para temp amb = {v}°C'))
+    plt.plot(tempo/60, resultados, label=(f'curva para temp da chapa = {v}°C'))
 plt.xlabel("tempo (min)")
 plt.legend(fontsize = 7)
 plt.ylabel("Temperatura (°C)")
